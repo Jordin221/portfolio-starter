@@ -34,8 +34,9 @@ const projects = [
 // Ask Copilot to help format this list based on your resume.
 // ============================================================
 const skills = [
-  "Python", "JavaScript", "Java", "C",
+  "Python", "JavaScript", "Java", "C++",
   "HTML & CSS", "Git & GitHub",
+  "Teamwork", "Communication",
   "React", "Node.js",
   "SQL", "Linux",
 ];
