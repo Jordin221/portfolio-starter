@@ -80,6 +80,41 @@ function renderSkills() {
 }
 
 // ============================================================
+// RENDER STARS
+// ============================================================
+function renderStars() {
+  const starField = document.createElement("div");
+  starField.className = "star-field";
+  starField.setAttribute("aria-hidden", "true");
+
+  const starChars = ["✦", "✧", "✩"];
+
+  for (let index = 0; index < 15; index += 1) {
+    const star = document.createElement("span");
+    star.className = "floating-star";
+    star.textContent = starChars[index % starChars.length];
+
+    const size = 10 + Math.random() * 18;
+    const top = Math.random() * 100;
+    const left = Math.random() * 100;
+    const duration = 3.5 + Math.random() * 4.5;
+    const delay = Math.random() * 3;
+    const driftDistance = 6 + Math.random() * 14;
+
+    star.style.top = `${top}%`;
+    star.style.left = `${left}%`;
+    star.style.fontSize = `${size}px`;
+    star.style.animationDuration = `${duration}s, ${duration * 0.75}s`;
+    star.style.animationDelay = `${delay}s, ${delay * 0.5}s`;
+    star.style.setProperty("--drift-distance", `${driftDistance}px`);
+
+    starField.appendChild(star);
+  }
+
+  document.body.appendChild(starField);
+}
+
+// ============================================================
 // DARK MODE TOGGLE
 // TODO: Implement this! Here's a stub to get you started.
 // Ask Copilot (inline chat on this function): "Implement dark mode
@@ -101,6 +136,7 @@ function updateYear() {
 // INIT
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
+  renderStars();
   renderProjects();
   renderSkills();
   updateYear();
