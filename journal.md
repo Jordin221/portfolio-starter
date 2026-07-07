@@ -9,11 +9,10 @@ Log your Copilot prompts here as you work. This is your record of the prompting 
 ## How to fill this in
 
 For each entry, note:
-- **Where** you used Copilot (inline chat, Ask mode, Edit mode, Agent mode, inline completion)
-- **What you asked** (copy/paste the prompt if you can)
-- **What you got** (brief summary — did it work? was it close? way off?)
-- **What you changed** (did you refine the prompt? edit the output manually?)
-
+- **Where** you used Copilot inline chat, Ask mode, Edit mode for the design.
+- **What you asked** i asked it to make a galaxy theme portfolio with stars.
+- **What you got** have no clue yet
+- **What you changed** I input all my info into the index file
 ---
 
 ## Phase 1 — Setup & Orientation
