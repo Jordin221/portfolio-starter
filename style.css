@@ -362,6 +362,93 @@ h2::after {
 }
 
 /* ============================================================
+   EXPERIENCE & EDUCATION
+   ============================================================ */
+.chart-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.chart-circle {
+  flex: 0 1 420px;
+  width: min(420px, 100%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.06), transparent 28%),
+    radial-gradient(circle at center, rgba(155, 123, 255, 0.16), rgba(11, 18, 38, 0.9) 62%);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.45), inset 0 0 24px rgba(109, 211, 255, 0.08);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.chart-circle h3 {
+  margin-bottom: 0.9rem;
+  font-size: 1.2rem;
+  color: #fff7ff;
+}
+
+.timeline-list {
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.timeline-list li {
+  position: relative;
+  padding: 0.7rem 0.95rem 0.7rem 2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(157, 123, 255, 0.14);
+  text-align: left;
+}
+
+.timeline-list li::before {
+  content: '';
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  width: 0.9rem;
+  height: 0.9rem;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  box-shadow: 0 0 0 4px rgba(155, 123, 255, 0.16), 0 0 16px rgba(109, 211, 255, 0.18);
+}
+
+.timeline-label {
+  display: block;
+  font-weight: 700;
+  color: #f4f0ff;
+  margin-bottom: 0.35rem;
+}
+
+.timeline-value {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .chart-grid {
+    gap: 1.5rem;
+  }
+
+  .chart-circle {
+    flex-basis: min(320px, 100%);
+    width: min(320px, 100%);
+  }
+}
+
+/* ============================================================
    PROJECTS
    ============================================================ */
 .projects-grid {
