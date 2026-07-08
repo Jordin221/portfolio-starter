@@ -89,12 +89,12 @@ function renderStars() {
 
   const starChars = ["✦", "✧", "✩"];
 
-  for (let index = 0; index < 30; index += 1) {
+  for (let index = 0; index < 40; index += 1) {
     const star = document.createElement("span");
     star.className = "floating-star";
     star.textContent = starChars[index % starChars.length];
 
-    const size = 10 + Math.random() * 18;
+    const size = 6 + Math.random() * 8;
     const top = Math.random() * 100;
     const left = Math.random() * 100;
     const duration = 3.5 + Math.random() * 4.5;
