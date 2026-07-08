@@ -329,10 +329,16 @@ h2::after {
   margin-top: 1rem;
 }
 
+.about-image {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .avatar-placeholder,
 .avatar-image {
-  width: 160px;
-  height: 160px;
+  width: clamp(180px, 22vw, 240px);
+  height: clamp(180px, 22vw, 240px);
   border-radius: 50%;
   border: 3px solid var(--color-border);
   background: radial-gradient(circle at 30% 30%, rgba(109, 211, 255, 0.32), rgba(155, 123, 255, 0.32)), var(--color-card);
