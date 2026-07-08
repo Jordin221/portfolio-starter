@@ -115,6 +115,37 @@ function renderStars() {
 }
 
 // ============================================================
+// ANIMATE SPACESHIP
+// ============================================================
+function animateSpaceship() {
+  const ship = document.querySelector(".spaceship");
+  if (!ship) return;
+
+  const cycleDuration = 24000;
+  const startTime = Date.now();
+
+  function updatePosition() {
+    const elapsed = (Date.now() - startTime) % cycleDuration;
+    const progress = elapsed / cycleDuration;
+    const viewportWidth = window.innerWidth;
+    const shipWidth = ship.getBoundingClientRect().width || 48;
+    const travelDistance = viewportWidth + shipWidth * 2;
+
+    const x = -shipWidth - 20 + travelDistance * progress;
+    const bob = Math.sin(progress * Math.PI * 6) * 10;
+    const tilt = Math.sin(progress * Math.PI * 2) * 8;
+    const fadeIn = Math.min(progress * 8, 1);
+    const fadeOut = Math.min((1 - progress) * 8, 1);
+
+    ship.style.opacity = `${Math.min(fadeIn, fadeOut)}`;
+    ship.style.transform = `translate3d(${x}px, ${bob}px, 0) rotate(${tilt}deg)`;
+  }
+
+  updatePosition();
+  setInterval(updatePosition, 50);
+}
+
+// ============================================================
 // DARK MODE TOGGLE
 // TODO: Implement this! Here's a stub to get you started.
 // Ask Copilot (inline chat on this function): "Implement dark mode
@@ -137,6 +168,7 @@ function updateYear() {
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
   renderStars();
+  animateSpaceship();
   renderProjects();
   renderSkills();
   updateYear();
