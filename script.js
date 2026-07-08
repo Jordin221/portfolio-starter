@@ -122,9 +122,73 @@ function animateSpaceship() {
   if (!ship) return;
 
   const cycleDuration = 24000;
-  const startTime = Date.now();
+  let startTime = Date.now();
+  let exploding = false;
+  let resetTimer = null;
+
+  function spawnExplosion(centerX, centerY) {
+    const explosion = document.createElement("div");
+    explosion.className = "ship-explosion";
+    explosion.style.left = `${centerX}px`;
+    explosion.style.top = `${centerY}px`;
+
+    const flash = document.createElement("div");
+    flash.className = "ship-flash";
+    explosion.appendChild(flash);
+
+    const colors = ["#fff7c7", "#ffd36d", "#ff9f6e", "#ff6b6b", "#9b7bff", "#6dd3ff", "#ffffff"];
+
+    for (let index = 0; index < 42; index += 1) {
+      const particle = document.createElement("span");
+      particle.className = "ship-particle";
+      const angle = (Math.PI * 2 * index) / 42 + Math.random() * 0.3;
+      const distance = 90 + Math.random() * 180;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance;
+      const size = 5 + Math.random() * 6;
+
+      particle.style.setProperty("--dx", `${dx}px`);
+      particle.style.setProperty("--dy", `${dy}px`);
+      particle.style.setProperty("--particle-color", colors[index % colors.length]);
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.animationDelay = `${Math.random() * 0.16}s`;
+
+      explosion.appendChild(particle);
+    }
+
+    document.body.appendChild(explosion);
+    window.setTimeout(() => explosion.remove(), 1700);
+  }
+
+  function triggerExplosion() {
+    if (exploding) return;
+    exploding = true;
+
+    const rect = ship.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    ship.style.opacity = "0";
+    spawnExplosion(centerX, centerY);
+
+    if (resetTimer) {
+      window.clearTimeout(resetTimer);
+    }
+
+    resetTimer = window.setTimeout(() => {
+      startTime = Date.now();
+      exploding = false;
+      ship.style.opacity = "0";
+      updatePosition();
+    }, 1600);
+  }
+
+  ship.addEventListener("click", triggerExplosion);
 
   function updatePosition() {
+    if (exploding) return;
+
     const elapsed = (Date.now() - startTime) % cycleDuration;
     const progress = elapsed / cycleDuration;
     const viewportWidth = window.innerWidth;

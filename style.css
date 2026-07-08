@@ -266,7 +266,8 @@ a:hover {
   z-index: 2;
   font-size: clamp(2rem, 3.2vw, 3rem);
   filter: drop-shadow(0 0 10px rgba(109, 211, 255, 0.45));
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   will-change: transform, opacity;
   opacity: 0;
 }
@@ -283,6 +284,40 @@ a:hover {
   background: linear-gradient(90deg, rgba(109, 211, 255, 0), rgba(109, 211, 255, 0.9), rgba(155, 123, 255, 0.2));
   filter: blur(1px);
   opacity: 0.9;
+}
+
+.ship-explosion {
+  position: fixed;
+  z-index: 3;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.ship-flash {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 214, 102, 0.95) 30%, rgba(255, 96, 96, 0) 70%);
+  box-shadow: 0 0 20px rgba(255, 226, 127, 0.95), 0 0 46px rgba(255, 120, 120, 0.7);
+  transform: translate(-50%, -50%) scale(0.5);
+  animation: shipFlash 0.65s ease-out forwards;
+}
+
+.ship-particle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--particle-color, #fff);
+  box-shadow: 0 0 12px var(--particle-color, #fff);
+  transform: translate(-50%, -50%);
+  animation: shipBurst 1.25s ease-out forwards;
 }
 
 /* ============================================================
@@ -614,6 +649,28 @@ footer {
   }
   100% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes shipFlash {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.2);
+  }
+}
+
+@keyframes shipBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px))) scale(0.1);
   }
 }
 
