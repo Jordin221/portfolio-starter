@@ -6,24 +6,24 @@
 // ============================================================
 const projects = [
   {
-    title: "Project One",
-    description: "A short description of what this project does and why you built it.",
-    tags: ["Python", "Flask"],
-    github: "https://github.com/yourusername/project-one",
+    title: "Contributor Catalyst",
+    description: "Public fork of contributor-catalyst/program-info, used to explore and share project information in an open-source workflow.",
+    tags: ["GitHub", "Open Source", "Collaboration"],
+    github: "https://github.com/Jordin221/contributor-catalyst",
     demo: null,
   },
   {
-    title: "Project Two",
-    description: "Another project you're proud of. What problem did it solve?",
-    tags: ["JavaScript", "React"],
-    github: "https://github.com/yourusername/project-two",
-    demo: "https://yourproject.netlify.app",
+    title: "FarmData2.1",
+    description: "Main development repository for the FarmData2 Drupal module.",
+    tags: ["Drupal", "Development", "Open Source"],
+    github: "https://github.com/Jordin221/FarmData2.1",
+    demo: null,
   },
   {
-    title: "Project Three",
-    description: "Keep it brief — one or two sentences is plenty.",
-    tags: ["Java", "Algorithms"],
-    github: "https://github.com/yourusername/project-three",
+    title: "Portfolio Starter",
+    description: "A custom personal portfolio site built with HTML, CSS, and JavaScript and deployed with GitHub Pages.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    github: "https://github.com/Jordin221/portfolio-starter",
     demo: null,
   },
 ];
