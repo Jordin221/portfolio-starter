@@ -174,10 +174,26 @@ a:hover {
   padding: 4rem 2rem;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(rgba(4, 7, 18, 0.45), rgba(4, 7, 18, 0.62));
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -8%;
   background:
-    linear-gradient(rgba(4, 7, 18, 0.58), rgba(4, 7, 18, 0.58)),
-    radial-gradient(circle at 50% 35%, rgba(155, 123, 255, 0.22), transparent 28%),
+    radial-gradient(circle at 50% 35%, rgba(155, 123, 255, 0.18), transparent 28%),
     url("https://wallpapercave.com/wp/wp7153972.jpg") center center / cover no-repeat;
+  transform: scale(1.08);
+  animation: spaceDrift 26s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(4, 7, 18, 0.42), rgba(4, 7, 18, 0.56));
+  z-index: 0;
 }
 
 .hero-content {
@@ -195,8 +211,15 @@ a:hover {
 }
 
 .highlight {
-  color: var(--color-accent);
-  text-shadow: 0 0 20px rgba(155, 123, 255, 0.5);
+  color: #f4f0ff;
+  background: linear-gradient(90deg, #fffaff 0%, #f4f0ff 28%, #d9ccff 58%, #9b7bff 100%);
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(244, 240, 255, 0.35), 0 0 22px rgba(155, 123, 255, 0.4), 0 0 38px rgba(109, 211, 255, 0.18);
+  animation: nameShimmer 2.8s ease-in-out infinite alternate;
 }
 
 .hero-subtitle {
@@ -464,6 +487,30 @@ footer {
   }
   50% {
     opacity: 1;
+  }
+}
+
+@keyframes spaceDrift {
+  0% {
+    transform: scale(1.08) translate3d(-1.5%, -1%, 0);
+    background-position: 48% 42%, center center;
+  }
+  50% {
+    transform: scale(1.12) translate3d(1%, 1.5%, 0);
+    background-position: 52% 58%, center center;
+  }
+  100% {
+    transform: scale(1.1) translate3d(-0.5%, 0.5%, 0);
+    background-position: 50% 48%, center center;
+  }
+}
+
+@keyframes nameShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
   }
 }
 

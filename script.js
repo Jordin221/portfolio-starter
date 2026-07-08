@@ -89,7 +89,7 @@ function renderStars() {
 
   const starChars = ["✦", "✧", "✩"];
 
-  for (let index = 0; index < 15; index += 1) {
+  for (let index = 0; index < 30; index += 1) {
     const star = document.createElement("span");
     star.className = "floating-star";
     star.textContent = starChars[index % starChars.length];
