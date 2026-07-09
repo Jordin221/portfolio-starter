@@ -73,7 +73,7 @@ html[data-theme="light"] {
   --hero-overlay: rgba(255, 255, 255, 0);
   --hero-overlay-strong: rgba(241, 246, 255, 0.04);
   --hero-background: url("https://images.pexels.com/photos/2598081/pexels-photo-2598081.jpeg?cs=srgb&dl=pexels-mo-eid-1268975-2598081.jpg&fm=jpg") center center / cover no-repeat;
-  --hero-text: #21304f;
+  --hero-text: #f8fbff;
   --hero-highlight-start: #1a2450;
   --hero-highlight-mid: #4a4fd6;
   --hero-highlight-end: #5b58e6;
@@ -207,11 +207,27 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding: 1rem 2rem;
   background: var(--nav-bg);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
   box-shadow: var(--shadow);
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--theme-toggle-border);
+  background: var(--theme-toggle-bg);
+  color: var(--theme-toggle-color);
+  font: inherit;
+  font-size: 1.1rem;
+  cursor: pointer;
 }
 
 .theme-toggle {
@@ -628,6 +644,33 @@ h2::after {
   gap: 1.5rem;
 }
 
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+.project-filter {
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--surface-soft);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition), background-color var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.project-filter:hover,
+.project-filter.is-active {
+  transform: translateY(-1px);
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
 .project-card {
   background: var(--color-card);
   border: 1px solid var(--color-border);
@@ -715,6 +758,57 @@ h2::after {
   gap: 1rem;
 }
 
+.contact-form {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  max-width: 720px;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text);
+  font: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid rgba(109, 211, 255, 0.45);
+  outline-offset: 2px;
+}
+
+.contact-message-field {
+  min-height: 0;
+}
+
+.contact-submit {
+  justify-self: start;
+}
+
+.contact-form-note {
+  min-height: 1.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
 /* ============================================================
    FOOTER
    ============================================================ */
@@ -724,6 +818,43 @@ footer {
   color: var(--color-text-muted);
   font-size: 0.875rem;
   border-top: 1px solid var(--color-border);
+}
+
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 120;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--theme-toggle-bg);
+  color: var(--theme-toggle-color);
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition), background-color var(--transition);
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top-sentinel {
+  position: absolute;
+  top: 420px;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
 }
 
 @keyframes twinkle {
@@ -830,6 +961,41 @@ footer {
    Ask Copilot: "Improve the responsive styles for screens under 600px"
    ============================================================ */
 @media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    order: 2;
+  }
+
+  .theme-toggle {
+    order: 3;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    order: 4;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem 0 0;
+  }
+
+  .nav-links.is-open {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.65rem 0;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
   }
@@ -837,5 +1003,9 @@ footer {
   .avatar-placeholder {
     width: 100px;
     height: 100px;
+  }
+
+  .contact-submit {
+    width: 100%;
   }
 }

@@ -14,7 +14,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=20260709-features" />
   </head>
   <body>
     <!-- ============================================================
@@ -22,7 +22,10 @@
     ============================================================ -->
     <nav class="navbar">
       <span class="nav-logo">Jordin's Page</span>
-      <ul class="nav-links">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
+        <span aria-hidden="true">☰</span>
+      </button>
+      <ul class="nav-links" id="primary-nav">
         <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -129,6 +132,7 @@
     ============================================================ -->
     <section class="section section-alt" id="projects">
       <h2>Projects</h2>
+      <div class="project-filters" id="project-filters" aria-label="Project filters"></div>
       <div class="projects-grid" id="projects-container">
         <!-- Populated by script.js -->
       </div>
@@ -155,6 +159,22 @@
         <!-- TODO: Update this message -->
         I'm currently open to new opportunities. Feel free to reach out!
       </p>
+      <form class="contact-form" id="contact-form">
+        <label>
+          Name
+          <input type="text" name="name" id="contact-name" placeholder="Your name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" id="contact-email" placeholder="you@example.com" required />
+        </label>
+        <label class="contact-message-field">
+          Message
+          <textarea name="message" id="contact-message" rows="5" placeholder="Tell me about your project or opportunity" required></textarea>
+        </label>
+        <button type="submit" class="btn contact-submit">Send Message</button>
+        <p class="contact-form-note" id="contact-form-note" aria-live="polite"></p>
+      </form>
       <div class="contact-links">
         <!-- TODO: Add your real links -->
         <a href="mailto:j.a.jones107732@spartans.nsu.edu?subject=Portfolio%20Website%20Inquiry&body=Hi%20Jordin,%0D%0A%0D%0AI%20wanted%20to%20reach%20out%20about%20your%20portfolio.%0D%0A%0D%0A" class="btn">✉️ Email Me</a>
@@ -168,6 +188,7 @@
     </section>
 
     <div class="spaceship" aria-hidden="true">🚀</div>
+    <button class="back-to-top" type="button" aria-label="Back to top">↑</button>
 
     <footer>
       <p>Built with GitHub Copilot &amp; GitHub Pages · <span id="year"></span></p>

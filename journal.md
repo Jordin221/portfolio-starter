@@ -157,3 +157,71 @@ How the HTML sections, CSS layout, and JavaScript rendering work together on a s
 **5. What would you build or improve next?**
 
 I would make the experience and education section more interactive and add a real project preview or contact form.
+
+---
+
+## Phase 4 — Theme and Interaction Updates
+
+### Entry 16 — Light and dark mode polish
+- **Feature/task:** Add light mode while keeping the current space theme as dark mode.
+- **Copilot feature used:** Edit.
+- **Prompt:**
+	> add a dark and light mode, keep the current theme as dark, and make light mode much brighter
+- **Result:** Added a working theme toggle with saved preference and a lighter light-mode palette.
+- **What I changed or did next:** Tuned the hero background, colors, and contrast so the light version felt brighter and easier to read.
+
+### Entry 17 — Light-mode background and text tweaks
+- **Feature/task:** Make the light-mode hero background more visible and the subtitle text lighter.
+- **Copilot feature used:** Edit.
+- **Prompt:**
+	> make the light mode background more visible and change the subtitle to a lighter color
+- **Result:** Reduced the washout effect and made the hero subtitle read as bright text in light mode.
+- **What I changed or did next:** Swapped the light-mode hero art, reduced overlays, and adjusted the subtitle color.
+
+### Entry 18 — Theme transition animation
+- **Feature/task:** Make switching into dark mode feel like a star-filled page flip.
+- **Copilot feature used:** Edit.
+- **Prompt:**
+	> going into dark mode i want alot of stars switching the screen like a page flip animations but stars flip the page
+- **Result:** Added a transition overlay with a burst of stars when themes change.
+- **What I changed or did next:** Removed the extra page-flip artwork so the transition became stars only.
+
+### Entry 19 — Icon bullets
+- **Feature/task:** Change the timeline bullets for each theme.
+- **Copilot feature used:** Edit.
+- **Prompt:**
+	> for the bullet points can you make it moon for nightmode and for light mode can you make the bullet point stars
+- **Result:** The experience and education bullets now show moons in dark mode and stars in light mode.
+- **What I changed or did next:** Kept the layout the same and only changed the marker icon styling.
+
+### Entry 20 — Page features
+- **Feature/task:** Add a few practical site features.
+- **Copilot feature used:** Edit.
+- **Prompt:**
+	> can you do all of them
+- **Result:** Added a mobile hamburger menu, project filters, a contact form, and a back-to-top button.
+- **What I changed or did next:** Verified the features in the browser and kept the desktop layout full-page.
+
+### Entry 21 — Hero subtitle color
+- **Feature/task:** Make the hero subtitle lighter in light mode.
+- **Copilot feature used:** Edit.
+- **Prompt:**
+	> so in light mode can we make this a lighter color instead of the dark color in dark mode
+- **Result:** Changed the subtitle to a much lighter color in the light theme.
+- **What I changed or did next:** Reloaded the page and checked the computed color in the browser.
+
+---
+
+## Reflection Update
+
+**What changed most recently?**
+
+I added a full light mode, then kept refining the visual contrast and theme transitions until the site felt intentional in both modes.
+
+**What feature feels strongest now?**
+
+The theme system plus the interactive project filters and contact form, because they make the site feel more complete and usable.
+
+**What would I improve next?**
+
+I would probably make the mobile menu and back-to-top button feel even smoother and add a real project preview or gallery next.

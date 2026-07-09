@@ -28,6 +28,8 @@ const projects = [
   },
 ];
 
+let currentProjectFilter = "All";
+
 // ============================================================
 // SKILLS DATA
 // TODO: Replace with your actual skills.
@@ -44,11 +46,34 @@ const skills = [
 // ============================================================
 // RENDER PROJECTS
 // ============================================================
+function renderProjectFilters() {
+  const container = document.getElementById("project-filters");
+  if (!container) return;
+
+  const allTags = ["All", ...new Set(projects.flatMap((project) => project.tags))];
+
+  container.innerHTML = allTags
+    .map(
+      (tag) => `
+        <button type="button" class="project-filter${tag === currentProjectFilter ? " is-active" : ""}" data-filter="${tag}">
+          ${tag}
+        </button>
+      `
+    )
+    .join("");
+}
+
 function renderProjects() {
   const container = document.getElementById("projects-container");
   if (!container) return;
 
-  container.innerHTML = projects
+  const normalizedFilter = currentProjectFilter.toLowerCase();
+  const visibleProjects =
+    normalizedFilter === "all"
+      ? projects
+      : projects.filter((project) => project.tags.some((tag) => tag.toLowerCase() === normalizedFilter));
+
+  container.innerHTML = visibleProjects
     .map(
       (project) => `
       <div class="project-card">
@@ -65,6 +90,12 @@ function renderProjects() {
     `
     )
     .join("");
+}
+
+function updateProjectFilter(filter) {
+  currentProjectFilter = filter;
+  renderProjectFilters();
+  renderProjects();
 }
 
 // ============================================================
@@ -217,10 +248,18 @@ function createThemeTransitionOverlay(nextTheme) {
   overlay.className = "theme-transition-overlay";
   overlay.setAttribute("aria-hidden", "true");
 
+  const isMobileViewport = window.innerWidth <= 768;
+
   const stars = document.createElement("div");
   stars.className = "theme-transition-stars";
 
-  const starCount = nextTheme === "dark" ? 140 : 64;
+  const starCount = isMobileViewport
+    ? nextTheme === "dark"
+      ? 120
+      : 72
+    : nextTheme === "dark"
+      ? 140
+      : 64;
   const starsAreDarkEntry = nextTheme === "dark";
 
   for (let index = 0; index < starCount; index += 1) {
@@ -230,11 +269,29 @@ function createThemeTransitionOverlay(nextTheme) {
     const x = Math.random() * 100;
     const y = Math.random() * 100;
     const angle = Math.random() * Math.PI * 2;
-    const distance = starsAreDarkEntry ? 160 + Math.random() * 360 : 90 + Math.random() * 180;
+    const distance = isMobileViewport
+      ? starsAreDarkEntry
+        ? 140 + Math.random() * 260
+        : 90 + Math.random() * 180
+      : starsAreDarkEntry
+        ? 160 + Math.random() * 360
+        : 90 + Math.random() * 180;
     const dx = Math.cos(angle) * distance;
     const dy = Math.sin(angle) * distance;
-    const size = starsAreDarkEntry ? 12 + Math.random() * 18 : 10 + Math.random() * 12;
-    const duration = starsAreDarkEntry ? 850 + Math.random() * 420 : 650 + Math.random() * 280;
+    const size = isMobileViewport
+      ? starsAreDarkEntry
+        ? 10 + Math.random() * 14
+        : 8 + Math.random() * 12
+      : starsAreDarkEntry
+        ? 12 + Math.random() * 18
+        : 10 + Math.random() * 12;
+    const duration = isMobileViewport
+      ? starsAreDarkEntry
+        ? 720 + Math.random() * 280
+        : 560 + Math.random() * 220
+      : starsAreDarkEntry
+        ? 850 + Math.random() * 420
+        : 650 + Math.random() * 280;
     const rotation = 80 + Math.random() * 180;
 
     star.style.left = `${x}%`;
@@ -333,6 +390,130 @@ function initializeThemeToggle() {
 }
 
 // ============================================================
+// MOBILE NAVIGATION
+// ============================================================
+function initializeMobileNavigation() {
+  const navToggle = document.querySelector(".nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  if (!navToggle || !navLinks) return;
+
+  const closeMenu = () => {
+    navLinks.classList.remove("is-open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navToggle.setAttribute("aria-label", "Open navigation menu");
+  };
+
+  navToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+  });
+
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      closeMenu();
+    }
+  });
+}
+
+// ============================================================
+// BACK TO TOP
+// ============================================================
+function initializeBackToTop() {
+  const backToTop = document.querySelector(".back-to-top");
+  if (!backToTop) return;
+
+  const sentinel = document.createElement("div");
+  sentinel.className = "back-to-top-sentinel";
+  sentinel.setAttribute("aria-hidden", "true");
+  document.body.prepend(sentinel);
+
+  const updateVisibility = () => {
+    backToTop.classList.toggle("is-visible", window.scrollY > 400);
+  };
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        backToTop.classList.toggle("is-visible", !entry.isIntersecting);
+      },
+      {
+        threshold: 0,
+      }
+    );
+
+    observer.observe(sentinel);
+  }
+
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  window.setInterval(updateVisibility, 200);
+  updateVisibility();
+}
+
+// ============================================================
+// CONTACT FORM
+// ============================================================
+function initializeContactForm() {
+  const form = document.getElementById("contact-form");
+  const note = document.getElementById("contact-form-note");
+  if (!form || !note) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const nameInput = document.getElementById("contact-name");
+    const emailInput = document.getElementById("contact-email");
+    const messageInput = document.getElementById("contact-message");
+
+    const name = nameInput instanceof HTMLInputElement ? nameInput.value.trim() : "";
+    const email = emailInput instanceof HTMLInputElement ? emailInput.value.trim() : "";
+    const message = messageInput instanceof HTMLTextAreaElement ? messageInput.value.trim() : "";
+
+    if (!name || !email || !message) {
+      note.textContent = "Please fill out your name, email, and message.";
+      return;
+    }
+
+    const subject = encodeURIComponent(`Portfolio message from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    const mailtoUrl = `mailto:j.a.jones107732@spartans.nsu.edu?subject=${subject}&body=${body}`;
+
+    note.textContent = "Opening your email app...";
+    window.location.href = mailtoUrl;
+  });
+}
+
+// ============================================================
+// PROJECT FILTERS
+// ============================================================
+function initializeProjectFilters() {
+  const filtersContainer = document.getElementById("project-filters");
+  if (!filtersContainer) return;
+
+  filtersContainer.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const filterButton = target.closest(".project-filter");
+    if (!(filterButton instanceof HTMLButtonElement)) return;
+
+    const nextFilter = filterButton.getAttribute("data-filter") || "All";
+    updateProjectFilter(nextFilter);
+  });
+
+  renderProjectFilters();
+}
+
+// ============================================================
 // UPDATE FOOTER YEAR
 // ============================================================
 function updateYear() {
@@ -345,8 +526,13 @@ function updateYear() {
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
   initializeThemeToggle();
+  initializeMobileNavigation();
+  initializeProjectFilters();
+  initializeContactForm();
+  initializeBackToTop();
   renderStars();
   animateSpaceship();
+  renderProjectFilters();
   renderProjects();
   renderSkills();
   updateYear();
