@@ -210,13 +210,126 @@ function animateSpaceship() {
 }
 
 // ============================================================
-// DARK MODE TOGGLE
-// TODO: Implement this! Here's a stub to get you started.
-// Ask Copilot (inline chat on this function): "Implement dark mode
-// toggle that saves preference to localStorage"
+// THEME TRANSITION ANIMATION
 // ============================================================
+function createThemeTransitionOverlay(nextTheme) {
+  const overlay = document.createElement("div");
+  overlay.className = "theme-transition-overlay";
+  overlay.setAttribute("aria-hidden", "true");
+
+  const stars = document.createElement("div");
+  stars.className = "theme-transition-stars";
+
+  const starCount = nextTheme === "dark" ? 140 : 64;
+  const starsAreDarkEntry = nextTheme === "dark";
+
+  for (let index = 0; index < starCount; index += 1) {
+    const star = document.createElement("span");
+    star.className = "theme-transition-star";
+
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const angle = Math.random() * Math.PI * 2;
+    const distance = starsAreDarkEntry ? 160 + Math.random() * 360 : 90 + Math.random() * 180;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+    const size = starsAreDarkEntry ? 12 + Math.random() * 18 : 10 + Math.random() * 12;
+    const duration = starsAreDarkEntry ? 850 + Math.random() * 420 : 650 + Math.random() * 280;
+    const rotation = 80 + Math.random() * 180;
+
+    star.style.left = `${x}%`;
+    star.style.top = `${y}%`;
+    star.style.setProperty("--dx", `${dx}px`);
+    star.style.setProperty("--dy", `${dy}px`);
+    star.style.setProperty("--star-size", `${size}px`);
+    star.style.setProperty("--star-duration", `${duration}ms`);
+    star.style.setProperty("--rotation", `${rotation}deg`);
+
+    stars.appendChild(star);
+  }
+
+  overlay.appendChild(stars);
+
+  return overlay;
+}
+
+function playThemeTransition(nextTheme) {
+  const existingOverlay = document.querySelector(".theme-transition-overlay");
+  if (existingOverlay) {
+    existingOverlay.remove();
+  }
+
+  const overlay = createThemeTransitionOverlay(nextTheme);
+  document.body.appendChild(overlay);
+
+  window.setTimeout(() => {
+    applyTheme(nextTheme);
+  }, 260);
+
+  window.setTimeout(() => {
+    overlay.remove();
+  }, 1220);
+}
+
+// ============================================================
+// DARK MODE TOGGLE
+// ============================================================
+const themeStorageKey = "portfolio-theme";
+
+function getSavedTheme() {
+  try {
+    const savedTheme = localStorage.getItem(themeStorageKey);
+    if (savedTheme === "light" || savedTheme === "dark") {
+      return savedTheme;
+    }
+  } catch (error) {
+    return "dark";
+  }
+
+  return "dark";
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+
+  const themeToggle = document.querySelector(".theme-toggle");
+  if (!themeToggle) return;
+
+  const isLightMode = theme === "light";
+  const toggleText = themeToggle.querySelector(".theme-toggle-text");
+  const toggleIcon = themeToggle.querySelector(".theme-toggle-icon");
+
+  themeToggle.setAttribute("aria-pressed", String(isLightMode));
+  themeToggle.setAttribute("aria-label", isLightMode ? "Switch to dark mode" : "Switch to light mode");
+
+  if (toggleText) {
+    toggleText.textContent = isLightMode ? "Dark mode" : "Light mode";
+  }
+
+  if (toggleIcon) {
+    toggleIcon.textContent = isLightMode ? "🌙" : "☀️";
+  }
+}
+
 function toggleDarkMode() {
-  // Your implementation here
+  const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+  const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+  playThemeTransition(nextTheme);
+
+  try {
+    localStorage.setItem(themeStorageKey, nextTheme);
+  } catch (error) {
+    // Ignore storage errors so the toggle still works in private browsing.
+  }
+}
+
+function initializeThemeToggle() {
+  const themeToggle = document.querySelector(".theme-toggle");
+  if (!themeToggle) return;
+
+  applyTheme(getSavedTheme());
+  themeToggle.addEventListener("click", toggleDarkMode);
 }
 
 // ============================================================
@@ -231,11 +344,10 @@ function updateYear() {
 // INIT
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
+  initializeThemeToggle();
   renderStars();
   animateSpaceship();
   renderProjects();
   renderSkills();
   updateYear();
-
-  // TODO: Wire up your dark mode toggle button here once you add it
 });

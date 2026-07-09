@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jordin Portfolio</title>
+    <script>
+      (function () {
+        try {
+          const savedTheme = localStorage.getItem('portfolio-theme');
+          document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? 'light' : 'dark');
+        } catch (error) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -19,7 +29,10 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <!-- TODO: Ask Copilot to add a dark mode toggle button here -->
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+        <span class="theme-toggle-icon" aria-hidden="true">☀️</span>
+        <span class="theme-toggle-text">Light mode</span>
+      </button>
     </nav>
 
     <!-- ============================================================
@@ -160,6 +173,6 @@
       <p>Built with GitHub Copilot &amp; GitHub Pages · <span id="year"></span></p>
     </footer>
 
-    <script src="script.js?v=20260708-rocket"></script>
+    <script src="script.js?v=20260709-theme"></script>
   </body>
 </html>
