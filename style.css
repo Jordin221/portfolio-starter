@@ -22,6 +22,7 @@
   --hero-overlay: rgba(4, 7, 18, 0.45);
   --hero-overlay-strong: rgba(4, 7, 18, 0.62);
   --hero-background: radial-gradient(circle at 50% 35%, rgba(155, 123, 255, 0.18), transparent 28%), url("https://wallpapercave.com/wp/wp7153972.jpg") center center / cover no-repeat;
+  --hero-filter: saturate(1.35) contrast(1.18) brightness(1.06);
   --hero-text: #e8ebff;
   --hero-highlight-start: #fffaff;
   --hero-highlight-mid: #f4f0ff;
@@ -70,9 +71,10 @@ html[data-theme="light"] {
   --page-glow-2: rgba(20, 119, 211, 0.12);
   --page-glow-3: rgba(255, 255, 255, 0.5);
   --nav-bg: rgba(255, 255, 255, 0.82);
-  --hero-overlay: rgba(255, 255, 255, 0);
-  --hero-overlay-strong: rgba(241, 246, 255, 0.04);
-  --hero-background: url("https://images.pexels.com/photos/2598081/pexels-photo-2598081.jpeg?cs=srgb&dl=pexels-mo-eid-1268975-2598081.jpg&fm=jpg") center center / cover no-repeat;
+  --hero-overlay: rgba(10, 14, 28, 0.18);
+  --hero-overlay-strong: rgba(10, 14, 28, 0.34);
+  --hero-background: url("images/image.png") center center / cover no-repeat;
+  --hero-filter: saturate(1.22) contrast(1.28) brightness(0.92);
   --hero-text: #f8fbff;
   --hero-highlight-start: #1a2450;
   --hero-highlight-mid: #4a4fd6;
@@ -303,8 +305,8 @@ a:hover {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transform: scale(1.08);
-  filter: saturate(1.35) contrast(1.18) brightness(1.06);
+  transform: scale(1.03);
+  filter: var(--hero-filter);
   animation: spaceDrift 26s ease-in-out infinite alternate;
 }
 
@@ -314,6 +316,18 @@ a:hover {
   inset: 0;
   background: linear-gradient(var(--hero-overlay), var(--hero-overlay-strong));
   z-index: 0;
+}
+
+@media (min-width: 1400px) {
+  html[data-theme="light"] .hero::before {
+    inset: 0;
+    transform: scale(0.98);
+    filter: saturate(1.02) contrast(1.5) brightness(1);
+  }
+
+  html[data-theme="light"] .hero::after {
+    background: linear-gradient(rgba(10, 14, 28, 0.04), rgba(10, 14, 28, 0.18));
+  }
 }
 
 .hero-content {
